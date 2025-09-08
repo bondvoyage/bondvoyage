@@ -1,6 +1,7 @@
 import { createClient } from "contentful";
 
 export default async function handler(req, res) {
+  console.log(process.env.CONTENTFUL_CDA_TOKEN, process.env.CONTENTFUL_SPACE_ID)
   try {
     const client = createClient({
       space: process.env.CONTENTFUL_SPACE_ID,
