@@ -1,9 +1,14 @@
 import { createClient } from "contentful";
 
-export default async function handler(req, res) {
-  console.log(process.env.CONTENTFUL_CDA_TOKEN, process.env.CONTENTFUL_SPACE_ID)
+const contentful = require("contentful");
+
+module.exports = async (req, res) => {
+  // Log environment variables to check they are set
+  console.log("SPACE_ID:", process.env.CONTENTFUL_SPACE_ID);
+  console.log("CDA_TOKEN:", process.env.CONTENTFUL_CDA_TOKEN);
+
   try {
-    const client = createClient({
+    const client = contentful.createClient({
       space: process.env.CONTENTFUL_SPACE_ID,
       accessToken: process.env.CONTENTFUL_CDA_TOKEN
     });
@@ -20,4 +25,4 @@ export default async function handler(req, res) {
     console.error("Error fetching from Contentful:", err);
     res.status(500).json({ error: "Failed to fetch articles" });
   }
-}
+};
