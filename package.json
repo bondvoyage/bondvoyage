@@ -1,4 +1,11 @@
 {
+  "name": "bondvoyage",
+  "version": "1.0.0",
+  "description": "Student-run finance publication website",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev"
+  },
   "dependencies": {
     "contentful": "^11.7.19"
   }
