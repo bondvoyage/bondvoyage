@@ -1,29 +1,55 @@
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+
 const container = document.getElementById("articles");
-const category = container.dataset.category;
 
-async function loadArticles() {
-  try {
-    const res = await fetch(`/api/articles${category ? `?category=${encodeURIComponent(category)}` : ""}`);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+if (container) {
+  const category = container.dataset.category;
 
-    const articles = await res.json();
+  async function loadArticles() {
+    try {
+      const res = await fetch(`/api/articles${category ? `?category=${encodeURIComponent(category)}` : ""}`);
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
-    articles.forEach(item => {
-      const articleDiv = document.createElement("div");
-      articleDiv.classList.add("article");
+      const articles = await res.json();
 
-      articleDiv.innerHTML = `
-        <h2>${item.fields.title}</h2>
-        <p>${item.fields.body}</p>
-        <a href="${item.fields.url || '#'}">Read more</a>
-        <hr>
-      `;
+      if (!Array.isArray(articles) || articles.length === 0) {
+        container.innerHTML = "<p>No articles found.</p>";
+        return;
+      }
 
-      container.appendChild(articleDiv);
-    });
-  } catch (err) {
-    console.error("Error loading articles:", err);
+      articles.forEach(item => {
+        const articleDiv = document.createElement("div");
+        articleDiv.classList.add("article");
+
+        const title = item.fields.title || "Untitled";
+        const author = item.fields.author || "Unknown";
+        const date = item.fields.date || "";
+        const category = item.fields.category || "";
+
+        let bodyHTML = "";
+        if (item.fields.body) {
+          try {
+            bodyHTML = documentToHtmlString(item.fields.body);
+          } catch (e) {
+            console.error("Error rendering rich text:", e);
+            bodyHTML = "<p>[Error rendering content]</p>";
+          }
+        }
+
+        articleDiv.innerHTML = `
+          <h2>${title}</h2>
+          <p><em>${author} — ${date} (${category})</em></p>
+          <div class="body">${bodyHTML}</div>
+          <hr>
+        `;
+
+        container.appendChild(articleDiv);
+      });
+    } catch (err) {
+      console.error("Error loading articles:", err);
+      container.innerHTML = "<p>Failed to load articles.</p>";
+    }
   }
-}
 
-loadArticles();
+  loadArticles();
+}

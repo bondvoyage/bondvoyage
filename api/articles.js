@@ -1,22 +1,56 @@
-import { createClient } from "contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
-export default async function handler(req, res) {
-  try {
-    const client = createClient({
-      space: process.env.CONTENTFUL_SPACE_ID,
-      accessToken: process.env.CONTENTFUL_CDA_TOKEN,
-    });
+const container = document.getElementById("articles");
 
-    const { category } = req.query;
+if (container) {
+  const category = container.dataset.category;
 
-    const entries = await client.getEntries({
-      content_type: "article",
-      ...(category && { "fields.category": category })
-    });
+  async function loadArticles() {
+    try {
+      const res = await fetch(`/api/articles${category ? `?category=${encodeURIComponent(category)}` : ""}`);
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
-    res.status(200).json(entries.items);
-  } catch (err) {
-    console.error("Error fetching from Contentful:", err);
-    res.status(500).json({ error: "Failed to fetch articles" });
+      const articles = await res.json();
+
+      if (!Array.isArray(articles) || articles.length === 0) {
+        container.innerHTML = "<p>No articles found.</p>";
+        return;
+      }
+
+      articles.forEach(item => {
+        const articleDiv = document.createElement("div");
+        articleDiv.classList.add("article");
+
+        const title = item.fields.title || "Untitled";
+        const author = item.fields.author || "Unknown";
+        const date = item.fields.date || "";
+        const category = item.fields.category || "";
+
+        // ✅ Convert RichText body to HTML
+        let bodyHTML = "";
+        if (item.fields.body) {
+          try {
+            bodyHTML = documentToHtmlString(item.fields.body);
+          } catch (e) {
+            console.error("Error rendering rich text:", e);
+            bodyHTML = "<p>[Error rendering content]</p>";
+          }
+        }
+
+        articleDiv.innerHTML = `
+          <h2>${title}</h2>
+          <p><em>${author} — ${date} (${category})</em></p>
+          <div class="body">${bodyHTML}</div>
+          <hr>
+        `;
+
+        container.appendChild(articleDiv);
+      });
+    } catch (err) {
+      console.error("Error loading articles:", err);
+      container.innerHTML = "<p>Failed to load articles.</p>";
+    }
   }
+
+  loadArticles();
 }
