@@ -2,7 +2,12 @@
   "name": "bondvoyage",
   "version": "1.0.0",
   "description": "Student-run finance publication website",
+  "type": "module",
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^17.1.5",
     "contentful": "^11.7.19"
+  },
+  "devDependencies": {
+    "vercel": "^25.2.0"
   }
 }

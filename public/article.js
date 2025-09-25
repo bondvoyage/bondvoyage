@@ -4,26 +4,17 @@ const category = container?.dataset.category;
 async function loadArticles() {
   if (!container) return;
 
-  const spaceId = "<YOUR_SPACE_ID>";
-  const accessToken = "<YOUR_CDA_TOKEN>";
-
   try {
-    const url = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?content_type=bondvoyage${
-      category ? `&fields.category=${encodeURIComponent(category)}` : ""
-    }`;
-
-    const res = await fetch(url);
+    const res = await fetch(`/api/articles${category ? `?category=${encodeURIComponent(category)}` : ""}`);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const data = await res.json();
+    const articles = await res.json();
 
-    const items = data.items;
-
-    if (!items.length) {
+    if (!articles.length) {
       container.innerHTML = "<p>No articles found.</p>";
       return;
     }
 
-    items.forEach(item => {
+    articles.forEach(item => {
       const articleDiv = document.createElement("div");
       articleDiv.classList.add("article");
 
