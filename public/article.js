@@ -1,47 +1,44 @@
 const container = document.getElementById("articles");
 const category = container?.dataset.category;
 
-function extractPlainText(richText) {
-  if (!richText || !richText.content) return "";
-  return richText.content
-    .map(node => {
-      if (node.nodeType === "paragraph" && node.content) {
-        return node.content.map(c => c.value || "").join("");
-      }
-      return "";
-    })
-    .join("\n\n");
-}
-
 async function loadArticles() {
   if (!container) return;
 
+  const spaceId = "<YOUR_SPACE_ID>";
+  const accessToken = "<YOUR_CDA_TOKEN>";
+
   try {
-    const res = await fetch(`/api/articles${category ? `?category=${encodeURIComponent(category)}` : ""}`);
+    const url = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries?content_type=bondvoyage${
+      category ? `&fields.category=${encodeURIComponent(category)}` : ""
+    }`;
+
+    const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const data = await res.json();
 
-    const articles = await res.json();
+    const items = data.items;
 
-    if (!articles.length) {
+    if (!items.length) {
       container.innerHTML = "<p>No articles found.</p>";
       return;
     }
 
-    articles.forEach(item => {
+    items.forEach(item => {
       const articleDiv = document.createElement("div");
       articleDiv.classList.add("article");
 
       const title = item.fields.title || "Untitled";
-      const author = item.fields.author || "Unknown";
-      const date = item.fields.date || "";
-      const categoryName = item.fields.category || "";
-
-      const bodyText = extractPlainText(item.fields.body);
+      const body = item.fields.body?.content
+        ?.map(node =>
+          node.nodeType === "paragraph"
+            ? node.content.map(c => c.value || "").join("")
+            : ""
+        )
+        .join("\n\n");
 
       articleDiv.innerHTML = `
         <h2>${title}</h2>
-        <p><em>${author} — ${date} (${categoryName})</em></p>
-        <p>${bodyText}</p>
+        <p>${body}</p>
         <hr>
       `;
 
