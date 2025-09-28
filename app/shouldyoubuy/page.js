@@ -11,7 +11,7 @@ export default async function ShouldYouBuyPage() {
   return (
     <div>
       <main className="max-w-7xl mx-auto px-4 p-8">
-        <h1 className="text-4xl text-blue-900 mb-8 px-4">Should You Buy?</h1>
+        <h1 className="text-4xl text-blue-900 mb-8">Should You Buy?</h1>
         <ul>
           {articles.map((item) => (
             <li key={item.sys.id}>

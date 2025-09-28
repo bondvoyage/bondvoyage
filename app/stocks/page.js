@@ -11,7 +11,7 @@ export default async function StocksPage() {
   return (
     <div>
       <main className="max-w-7xl mx-auto px-4 p-8">
-        <h1 className="text-4xl text-blue-900 mb-8 px-4">Stocks</h1>
+        <h1 className="text-4xl text-blue-900 mb-8">Stocks</h1>
         <ul>
           {stocks.map((stock) => (
             <li key={stock.sys.id}>
