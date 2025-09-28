@@ -42,7 +42,7 @@ export default function NavBar() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/ETFs" className="hover:text-blue-700 block px-3 py-1 rounded">
+                  <Link href="/etfs" className="hover:text-blue-700 block px-3 py-1 rounded">
                     ETFs
                   </Link>
                 </li>
