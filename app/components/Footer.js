@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="text-blue-900 py-10">
@@ -8,13 +10,13 @@ export default function Footer() {
           <h3 className="text-lg mb-4">Markets</h3>
           <ul className="space-y-2">
             <li>
-              <a href="/stocks" className="hover:underline">Stocks</a>
+              <Link href="/stocks" className="hover:underline">Stocks</Link>
             </li>
             <li>
-              <a href="/etfs" className="hover:underline">ETFs</a>
+              <Link href="/etfs" className="hover:underline">ETFs</Link>
             </li>
             <li>
-              <a href="/crypto" className="hover:underline">Crypto</a>
+              <Link href="/crypto" className="hover:underline">Crypto</Link>
             </li>
           </ul>
         </div>
@@ -24,7 +26,7 @@ export default function Footer() {
           <h3 className="text-lg mb-4">Reports</h3>
           <ul className="space-y-2">
             <li>
-              <a href="/shouldyoubuy" className="hover:underline">Should You Buy?</a>
+              <Link href="/shouldyoubuy" className="hover:underline">Should You Buy?</Link>
             </li>
           </ul>
         </div>
@@ -37,7 +39,14 @@ export default function Footer() {
               <a href="mailto:bondvoyage.us@gmail.com" className="hover:underline">Email</a>
             </li>
             <li>
-              <a href="https://instagram.com/bondvoyage" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a>
+              <a
+                href="https://instagram.com/bondvoyage"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Instagram
+              </a>
             </li>
           </ul>
         </div>
