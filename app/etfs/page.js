@@ -1,9 +1,10 @@
 import client from '../lib/contentful';
+import Link from 'next/link';
 
 export default async function ETFsPage() {
   const res = await client.getEntries({
     content_type: 'bondvoyage',
-    'fields.category': 'ETFs'
+    'fields.category': 'ETFs',
   });
   const etfs = res.items;
 
@@ -14,7 +15,12 @@ export default async function ETFsPage() {
         <ul>
           {etfs.map((etf) => (
             <li key={etf.sys.id}>
-              <a href={`/etfs/${etf.fields.slug}`}>{etf.fields.title}</a>
+              <Link
+                href={`/etfs/${etf.fields.slug}`}
+                className="text-blue-600 hover:underline"
+              >
+                {etf.fields.title}
+              </Link>
             </li>
           ))}
         </ul>

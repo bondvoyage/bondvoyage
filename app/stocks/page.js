@@ -1,9 +1,10 @@
 import client from '../lib/contentful';
+import Link from 'next/link';
 
 export default async function StocksPage() {
   const res = await client.getEntries({
     content_type: 'bondvoyage',
-    'fields.category': 'Stocks'
+    'fields.category': 'Stocks',
   });
   const stocks = res.items;
 
@@ -14,7 +15,12 @@ export default async function StocksPage() {
         <ul>
           {stocks.map((stock) => (
             <li key={stock.sys.id}>
-              <a href={`/stocks/${stock.fields.slug}`}> {stock.fields.title} </a>
+              <Link
+                href={`/stocks/${stock.fields.slug}`}
+                className="text-blue-600 hover:underline"
+              >
+                {stock.fields.title}
+              </Link>
             </li>
           ))}
         </ul>
