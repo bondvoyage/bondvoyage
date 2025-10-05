@@ -65,10 +65,15 @@ export default function NavBar() {
               Reports ▾
             </Link>
             {reportsOpen && (
-              <ul className="absolute left-0 top-full mt-0 bg-white shadow-lg rounded p-2 space-y-1 text-blue-900 font-medium w-48">
+              <ul className="absolute left-0 top-full mt-0 shadow-lg rounded p-2 space-y-1 text-blue-900 font-medium w-48">
                 <li>
                   <Link href="/shouldyoubuy" className="hover:text-blue-700 block px-3 py-1 rounded">
                     Should You Buy?
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/stockcomparison" className="hover:text-blue-700 block px-3 py-1 rounded">
+                    Stock Comparison
                   </Link>
                 </li>
               </ul>
@@ -89,4 +94,4 @@ export default function NavBar() {
       </div>
     </nav>
   );
-} 
+}
