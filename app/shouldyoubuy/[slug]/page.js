@@ -20,7 +20,7 @@ export default async function ShouldYouBuyPage({ params }) {
   const shouldyoubuy = res.items[0];
   if (!shouldyoubuy) return <p className="text-center mt-10">No Article</p>;
 
-  const { author, title, body, image, summary, imagecredit } = shouldyoubuy.fields;
+  const { date, author, title, body, image, summary, imagecredit } = shouldyoubuy.fields;
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12">
@@ -30,6 +30,7 @@ export default async function ShouldYouBuyPage({ params }) {
         <p className="text-sm font-semibold text-blue-700 tracking-widest uppercase mb-2"> Should You Buy </p>
         <h1 className="text-5xl font-bold text-blue-900 leading-tight mb-4"> {title} </h1>
         <p className="text-sm text-blue-800 max-w-2xl mb-4"> {summary} </p>
+        <p className="text-sm text-blue-800 font-medium"> {date} </p>
         <p className="text-sm text-blue-800 font-medium"> By {author} </p>
       </div>
 
