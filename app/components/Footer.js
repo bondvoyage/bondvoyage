@@ -9,15 +9,9 @@ export default function Footer() {
         <div>
           <h3 className="text-lg mb-4">Markets</h3>
           <ul className="space-y-2">
-            <li>
-              <Link href="/stocks" className="hover:underline">Stocks</Link>
-            </li>
-            <li>
-              <Link href="/etfs" className="hover:underline">ETFs</Link>
-            </li>
-            <li>
-              <Link href="/crypto" className="hover:underline">Crypto</Link>
-            </li>
+            <li> <Link href="/stocks" className="hover:underline"> Stocks </Link> </li>
+            <li> <Link href="/etfs" className="hover:underline"> ETFs </Link> </li>
+            <li> <Link href="/crypto" className="hover:underline"> Crypto </Link> </li>
           </ul>
         </div>
 
@@ -25,8 +19,9 @@ export default function Footer() {
         <div>
           <h3 className="text-lg mb-4">Reports</h3>
           <ul className="space-y-2">
-            <li>
-              <Link href="/shouldyoubuy" className="hover:underline">Should You Buy?</Link>
+            <li> <Link href="/shouldyoubuy" className="hover:underline">Should You Buy?</Link>
+            </li>
+            <li> <Link href="/stockcomparison" className="hover:underline">Stock Comparison</Link>
             </li>
           </ul>
         </div>
