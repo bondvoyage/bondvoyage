@@ -23,7 +23,7 @@ export default function NavBar() {
       ],
     },
     { path: "/about", label: "About" },
-    { path: "/contact", label: "Contact Us" },
+    { path: "/contact", label: "Contact" },
   ];
 
   return (
