@@ -6,7 +6,7 @@ export default function About() {
         {/* Mission */}
         <section className="text-center">
           <h1 className="text-4xl font-bold text-blue-900 mb-4">
-            Bond Voyage's Mission
+            Bond Voyage&apos;s Mission
           </h1>
           <p className="text-gray-700 text-lg leading-relaxed">
             Bond Voyage is a youth-led publication focused on empowering students interested in finance. It provides a free and accessible space to share insights, research, and projects. By combining finance concepts, writing, and experiences, Bond Voyage aims to make economics more approachable and inspire innovation.
