@@ -1,5 +1,6 @@
 import client from '../lib/contentful';
 import Link from 'next/link';
+export const dynamic = "force-dynamic";
 
 export default async function StockComparisonPage() {
   const res = await client.getEntries({
