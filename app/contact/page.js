@@ -28,12 +28,12 @@ export default function Contact() {
           <div className="flex justify-center items-center space-x-4">
             <Instagram className="text-pink-600" size={24} />
             <a
-              href="https://instagram.com/bondvoyage"
+              href="https://instagram.com/bondvoyageofficial"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-900 text-lg hover:underline"
             >
-              @bondvoyage
+              @bondvoyageofficial
             </a>
           </div>
 
