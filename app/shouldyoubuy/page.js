@@ -21,7 +21,9 @@ export default async function ShouldYouBuyPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-blue-900 mb-8">Should You Buy?</h1>
+      <h1 className="text-4xl font-bold text-blue-900 mb-4">Should You Buy?</h1>
+      <p className="text-blue-800 mb-8"> An analysis of a stock, outlining its potential advantages and disadvantages by drawing on multiple sources and perspectives to explain the key factors influencing the investment. </p>
+
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
 

@@ -21,7 +21,8 @@ export default async function StockComparisonPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-blue-900 mb-8">Stock Comparison</h1>
+      <h1 className="text-4xl font-bold text-blue-900 mb-4">Stock Comparison</h1>
+      <p className="text-blue-800 mb-8"> A side-by-side comparison of two stocks, evaluating performance, risks, and growth potential to determine which may be the better investment. </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
