@@ -4,51 +4,93 @@ import Link from 'next/link';
 export default async function ShouldYouBuyPage() {
   const res = await client.getEntries({
     content_type: 'bondvoyage',
-    'fields.category': 'Should You Buy?',
+    order: '-fields.date',
+    'fields.category': 'Should You Buy?'
   });
-
   const articles = res.items;
 
+  const leftColumn = [];
+  const middleColumn = [];
+  const rightColumn = [];
+
+  articles.forEach((article, index) => {
+    if (index % 3 === 0) leftColumn.push(article);
+    else if (index % 3 === 1) middleColumn.push(article);
+    else rightColumn.push(article);
+  });
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12 mb-30">
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <h1 className="text-4xl font-bold text-blue-900 mb-8">Should You Buy?</h1>
 
-      {/* Page Header */}
-      <div className="mb-6">
-        <h1 className="text-5xl font-bold text-blue-900 mb-1">Should You Buy?</h1> 
-        <p className="text-blue-800">
-          A curated list of analysis and insights for growth-focused investors.
-        </p>
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
-      {/* Articles Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {articles.map((item) => {
-          const { title, author, summary, slug, image } = item.fields;
-
-          return (
-            <Link
-              key={item.sys.id}
-              href={`/shouldyoubuy/${slug}`}
-              className="block hover:bg-gray-50 transition-colors duration-200"
-            >
-              {/* Image */}
-              {image?.fields?.file?.url && (
-                <img
-                  src={`https:${image.fields.file.url}`}
-                  alt={title}
-                  className="w-full h-full object-contain"
-                />
-              )}
-
-              {/* Content */}
-              <div className="p-4">
-                <h2 className="text-xl font-semibold text-blue-900 mb-1 hover:underline">{title}</h2>
-                <p className="text-sm text-gray-600 mb-2">By {author}</p>
+        {/* Left Column */}
+        <div className="flex flex-col space-y-6 lg:col-span-1">
+          {leftColumn.map((item) => {
+            const { title, slug, summary, image } = item.fields;
+            return (
+              <Link key={item.sys.id} href={`/articles/${slug}`} className="group">
+                {image?.fields?.file?.url && (
+                  <img
+                    src={`https:${image.fields.file.url}`}
+                    alt={title}
+                    className="w-full object-cover h-48"
+                  />
+                )}
+                <h2 className="text-lg font-semibold text-blue-900 mt-2 group-hover:underline">
+                  {title}
+                </h2>
                 <p className="text-blue-800 text-sm">{summary}</p>
-              </div>
-            </Link>
-          );
-        })}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Middle Column */}
+        <div className="flex flex-col space-y-6 lg:col-span-2">
+          {middleColumn.map((item, index) => {
+            const { title, slug, summary, image } = item.fields;
+            return (
+              <Link key={item.sys.id} href={`/articles/${slug}`} className="group">
+                {image?.fields?.file?.url && (
+                  <img
+                    src={`https:${image.fields.file.url}`}
+                    alt={title}
+                    className={`w-full object-cover ${index === 0 ? 'h-96' : 'h-64'}`}
+                  />
+                )}
+                <h2 className={`mt-2 font-bold text-blue-900 ${index === 0 ? 'text-2xl' : 'text-xl'} group-hover:underline`}>
+                  {title}
+                </h2>
+                {index === 0 && <p className="text-blue-800 text-sm">{summary}</p>}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right Column */}
+        <div className="flex flex-col space-y-6 lg:col-span-1">
+          {rightColumn.map((item) => {
+            const { title, slug, summary, image } = item.fields;
+            return (
+              <Link key={item.sys.id} href={`/articles/${slug}`} className="group">
+                {image?.fields?.file?.url && (
+                  <img
+                    src={`https:${image.fields.file.url}`}
+                    alt={title}
+                    className="w-full object-cover h-48"
+                  />
+                )}
+                <h2 className="text-lg font-semibold text-blue-900 mt-2 group-hover:underline">
+                  {title}
+                </h2>
+                <p className="text-blue-800 text-sm">{summary}</p>
+              </Link>
+            );
+          })}
+        </div>
+
       </div>
     </div>
   );
