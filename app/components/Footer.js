@@ -35,12 +35,17 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="https://instagram.com/bondvoyage"
+                href="https://instagram.com/bondvoyageofficial"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:underline"
               >
                 Instagram
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/bondvoyage/bondvoyage" className="hover:underline">
+                Github
               </a>
             </li>
           </ul>
